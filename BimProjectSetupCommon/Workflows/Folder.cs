@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
 using BimProjectSetupCommon.Helpers;
-using Autodesk.Forge.BIM360;
-using Autodesk.Forge.BIM360.Serialization;
+using Autodesk.APS.BIM360;
+using Autodesk.APS.BIM360.Serialization;
 
 
 namespace BimProjectSetupCommon.Workflow
@@ -196,7 +196,7 @@ namespace BimProjectSetupCommon.Workflow
         }
         private TopFolderResponse GetTopFolders(string projId)
         {
-            IRestResponse response = _hubsApi.GetTopFolders(projId);
+            RestResponse response = _hubsApi.GetTopFolders(projId);
             TopFolderResponse content = JsonConvert.DeserializeObject<TopFolderResponse>(response.Content);
 
             return content;
@@ -232,7 +232,7 @@ namespace BimProjectSetupCommon.Workflow
 
             users.Add(user);
 
-            IRestResponse res = _projectApi.PostUsersImport(newProjId, admin.uid, users, accountId);
+            RestResponse res = _projectApi.PostUsersImport(newProjId, admin.uid, users, accountId);
 
             if (res.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -462,7 +462,7 @@ namespace BimProjectSetupCommon.Workflow
                 bool result = CreateProjectFromTargetHub(orgProj, targetAccountId, out string newProjId);
                 if (result)
                 {
-                    IRestResponse res = _projectApi.GetProject(newProjId, targetAccountId);
+                    RestResponse res = _projectApi.GetProject(newProjId, targetAccountId);
                     BimProject newProj = DataController.HandleGetProjectResponse(res);
                     roleIds = GetIndustryRoleIds(newProj, roles, targetAccountId);
                     admin = GetAdminUserFromTargetHub(adminEmail, targetAccountId);
@@ -514,7 +514,7 @@ namespace BimProjectSetupCommon.Workflow
         #endregion
 
         #region Response Handler
-        internal static bool ActivateProjectResponseHandler(IRestResponse response, string id, int rowIndex = -1)
+        internal static bool ActivateProjectResponseHandler(RestResponse response, string id, int rowIndex = -1)
         {
             LogResponse(response);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -536,7 +536,7 @@ namespace BimProjectSetupCommon.Workflow
             Log.Error($"- project activation failed. Code: {response.StatusCode}\t message: {response.ErrorMessage}");
             return false;
         }
-        internal static void LogResponse(IRestResponse response)
+        internal static void LogResponse(RestResponse response)
         {
             Log.Info($"- status code: {response.StatusCode}");
             if (response.ErrorException != null)

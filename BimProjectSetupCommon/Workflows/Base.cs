@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////
 
 using System;
-using Autodesk.Forge.BIM360;
+using Autodesk.APS.BIM360;
 using NLog;
 using BimProjectSetupCommon.Helpers;
 

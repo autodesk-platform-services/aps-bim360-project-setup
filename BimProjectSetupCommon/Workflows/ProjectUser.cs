@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -22,8 +22,8 @@ using System.Linq;
 using System.Data;
 using RestSharp;
 using Newtonsoft.Json;
-using Autodesk.Forge.BIM360;
-using Autodesk.Forge.BIM360.Serialization;
+using Autodesk.APS.BIM360;
+using Autodesk.APS.BIM360.Serialization;
 using BimProjectSetupCommon.Helpers;
 
 namespace BimProjectSetupCommon.Workflow
@@ -149,16 +149,16 @@ namespace BimProjectSetupCommon.Workflow
 
                 if (users.Count() < 50)
                 {
-                    IRestResponse response = _projectsApi.PostUsersImport(project.id, hqAdmin.uid, users.ToList());
+                    RestResponse response = _projectsApi.PostUsersImport(project.id, hqAdmin.uid, users.ToList());
                     ProjectUserResponseHandler(response);
                 }
                 else if (users.Count() >= 50)
                 {
-                    List<IRestResponse> responses = new List<IRestResponse>();
+                    List<RestResponse> responses = new List<RestResponse>();
                     IEnumerable<List<ProjectUser>> chunks = Util.SplitList(users.ToList());
                     foreach (List<ProjectUser> list in chunks)
                     {
-                        IRestResponse response = _projectsApi.PostUsersImport(project.id, hqAdmin.uid, list);
+                        RestResponse response = _projectsApi.PostUsersImport(project.id, hqAdmin.uid, list);
                         ProjectUserResponseHandler(response);
                     }
                 }
@@ -197,7 +197,7 @@ namespace BimProjectSetupCommon.Workflow
                     if (CheckUserId(projectUser.email, out hqUser))
                     {
                         Log.Info($"- updating user {projectUser.email}");
-                        IRestResponse response = _projectsApi.PatchUser(project.id, hqAdmin.uid, hqUser.id, projectUser);
+                        RestResponse response = _projectsApi.PatchUser(project.id, hqAdmin.uid, hqUser.id, projectUser);
                         ProjectUserPatchResponseHandler(response);
                     }
                     else
@@ -399,11 +399,11 @@ namespace BimProjectSetupCommon.Workflow
         }
 
         #region Response Handler
-        internal static void ProjectUsersResponseHandler(List<IRestResponse> responses)
+        internal static void ProjectUsersResponseHandler(List<RestResponse> responses)
         {
-            foreach (IRestResponse response in responses) ProjectUserResponseHandler(response);
+            foreach (RestResponse response in responses) ProjectUserResponseHandler(response);
         }
-        internal static void ProjectUserResponseHandler(IRestResponse response)
+        internal static void ProjectUserResponseHandler(RestResponse response)
         {
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -435,7 +435,7 @@ namespace BimProjectSetupCommon.Workflow
                 LogResponse(response);
             }
         }
-        internal static void ProjectUserPatchResponseHandler(IRestResponse response)
+        internal static void ProjectUserPatchResponseHandler(RestResponse response)
         {
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -466,7 +466,7 @@ namespace BimProjectSetupCommon.Workflow
             Log.Error(e.Message);
             Log.Error(e);
         }
-        internal static void LogResponse(IRestResponse response)
+        internal static void LogResponse(RestResponse response)
         {
             Log.Info($"- status Code: {response.StatusCode}");
             if (response.ErrorException != null)

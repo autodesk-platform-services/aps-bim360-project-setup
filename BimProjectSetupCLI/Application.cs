@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -94,8 +94,8 @@ namespace Autodesk.BimProjectSetup
             Console.WriteLine("  -p        Path to CSV input file for project creation");
             Console.WriteLine("  -x        Path to CSV input file for service activation");
             Console.WriteLine("  -u        Path to CSV input file with project user information");
-            Console.WriteLine("  -c        Forge client ID");
-            Console.WriteLine("  -s        Forge client secret");
+            Console.WriteLine("  -c        APS client ID");
+            Console.WriteLine("  -s        APS client secret");
             Console.WriteLine("  -a        BIM 360 Account ID");
             Console.WriteLine("  -b        BaseUrl (default= \"https://developer.api.autodesk.com\"");
             Console.WriteLine("  -t        Separator character (default = ';')");

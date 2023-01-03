@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -20,7 +20,7 @@ using System;
 using System.Linq;
 using System.Text;
 using BimProjectSetupCommon.Helpers;
-using Autodesk.Forge.BIM360;
+using Autodesk.APS.BIM360;
 
 namespace BimProjectSetupCommon
 {
@@ -31,9 +31,9 @@ namespace BimProjectSetupCommon
         public string ProjectUserFilePath { get; set; }
         public string CompanyFilePath { get; set; }
         public string AccountUserFilePath { get; set; }
-        public string ForgeClientId { get; private set; }
-        public string ForgeClientSecret { get; private set; }
-        public string ForgeBimAccountId { get; private set; }
+        public string APSClientId { get; private set; }
+        public string APSClientSecret { get; private set; }
+        public string APSBimAccountId { get; private set; }
         public string BaseUrl { get; private set; }
         public char Separator
         {
@@ -97,9 +97,9 @@ namespace BimProjectSetupCommon
         }
         internal AppOptions()
         {
-            ForgeClientId = Environment.GetEnvironmentVariable("FORGE_CLIENT_ID") ?? "your_client_id";
-            ForgeClientSecret = Environment.GetEnvironmentVariable("FORGE_CLIENT_SECRET") ?? "your_client_secret";
-            ForgeBimAccountId = Environment.GetEnvironmentVariable("FORGE_BIM_ACCOUNT_ID") ?? "your_account_id";
+            APSClientId = Environment.GetEnvironmentVariable("APS_CLIENT_ID") ?? "your_client_id";
+            APSClientSecret = Environment.GetEnvironmentVariable("APS_CLIENT_SECRET") ?? "your_client_secret";
+            APSBimAccountId = Environment.GetEnvironmentVariable("APS_BIM_ACCOUNT_ID") ?? "your_account_id";
             Encoding = GetEncoding("UTF-8");
             TrialRun = false;
             CopyFolders = false;
@@ -129,15 +129,15 @@ namespace BimProjectSetupCommon
                 }
                 else if (arg.Equals("-c", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    options.ForgeClientId = args[++i];
+                    options.APSClientId = args[++i];
                 }
                 else if (arg.Equals("-s", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    options.ForgeClientSecret = args[++i];
+                    options.APSClientSecret = args[++i];
                 }
                 else if (arg.Equals("-a", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    options.ForgeBimAccountId = args[++i];
+                    options.APSBimAccountId = args[++i];
                 }
                 else if (arg.Equals("-b", StringComparison.InvariantCultureIgnoreCase))
                 {

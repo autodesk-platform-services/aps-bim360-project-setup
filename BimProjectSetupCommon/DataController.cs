@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -27,8 +27,8 @@ using RestSharp;
 using Newtonsoft.Json;
 
 using BimProjectSetupCommon.Helpers;
-using Autodesk.Forge.BIM360;
-using Autodesk.Forge.BIM360.Serialization;
+using Autodesk.APS.BIM360;
+using Autodesk.APS.BIM360.Serialization;
 using System.Reflection;
 
 namespace BimProjectSetupCommon
@@ -393,7 +393,7 @@ namespace BimProjectSetupCommon
         }
         #endregion
 
-        #region Forge API calls
+        #region APS API calls
         private static string GetToken()
         {
             if (_token == null || ((DateTime.Now - StartAuth) > TimeSpan.FromMinutes(30)))
@@ -423,7 +423,7 @@ namespace BimProjectSetupCommon
                 return null;
             }
             BimProjectsApi _projectsApi = new BimProjectsApi(GetToken, _options);
-            IRestResponse response = _projectsApi.GetProject(projId);
+            RestResponse response = _projectsApi.GetProject(projId);
             return HandleGetProjectResponse(response);
         }
         private static List<HqUser> GetAccountUsers()
@@ -482,7 +482,7 @@ namespace BimProjectSetupCommon
             }
 
             HubsApi _hubsApi = new HubsApi(GetToken, _options);
-            IRestResponse response = _hubsApi.GetHubs();
+            RestResponse response = _hubsApi.GetHubs();
             List<Hub> result = HandleGetHubsResponse(response);
             return result;
         }
@@ -544,7 +544,7 @@ namespace BimProjectSetupCommon
 
             bool success = false;
             BimProject newProject = null;
-            IRestResponse response = _projectsApi.PostProject(project, accountId);
+            RestResponse response = _projectsApi.PostProject(project, accountId);
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 newProject = JsonConvert.DeserializeObject<BimProject>(response.Content);
@@ -598,7 +598,7 @@ namespace BimProjectSetupCommon
         public static void UpdateProject(BimProject project, int rowIndex = -1)
         {
             BimProjectsApi _projectsApi = new BimProjectsApi(GetToken, _options);
-            IRestResponse response = _projectsApi.PatchProjects(project.id, project);
+            RestResponse response = _projectsApi.PatchProjects(project.id, project);
             HandleUpdateProjectResponse(response, project, rowIndex);
         }
 
@@ -608,25 +608,25 @@ namespace BimProjectSetupCommon
             project.status = Status.archived;
             project.include_name_to_request_body = false;
             project.service_types = "";
-            IRestResponse response = _projectsApi.PatchProjects(project.id, project);
+            RestResponse response = _projectsApi.PatchProjects(project.id, project);
             HandleUpdateProjectResponse(response, project);
         }
         public static void AddCompanies(List<BimCompany> companies)
         {
             AccountApi _companiesApi = new AccountApi(GetToken, _options);
-            IRestResponse response = _companiesApi.PostCompanies(companies);
+            RestResponse response = _companiesApi.PostCompanies(companies);
             HandleAddCompaniesResponse(response);
         }
         public static void AddAccountUsers(List<HqUser> users)
         {
             AccountApi _usersApi = new AccountApi(GetToken, _options);
-            IRestResponse response = _usersApi.PostUsers(users);
+            RestResponse response = _usersApi.PostUsers(users);
             HandleAddUsersResponse(response);
         }
         #endregion
 
         #region Response Handler
-        internal static List<Hub> HandleGetHubsResponse(IRestResponse response)
+        internal static List<Hub> HandleGetHubsResponse(RestResponse response)
         {
             List<Hub> hubs = null;
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -638,7 +638,7 @@ namespace BimProjectSetupCommon
             }
             return hubs;
         }
-        internal static void HandleAddCompaniesResponse(IRestResponse response)
+        internal static void HandleAddCompaniesResponse(RestResponse response)
         {
             BimCompaniesResponse content = JsonConvert.DeserializeObject<BimCompaniesResponse>(response.Content);
 
@@ -663,7 +663,7 @@ namespace BimProjectSetupCommon
                 }
             }
         }
-        internal static void HandleAddUsersResponse(IRestResponse response)
+        internal static void HandleAddUsersResponse(RestResponse response)
         {
             HqUserResponse content = JsonConvert.DeserializeObject<HqUserResponse>(response.Content);
 
@@ -689,7 +689,7 @@ namespace BimProjectSetupCommon
                 _AccountUsers = _AccountUsers.OrderBy(x => x.full_name).ToList();
             }
         }
-        internal static BimProject HandleGetProjectResponse(IRestResponse response)
+        internal static BimProject HandleGetProjectResponse(RestResponse response)
         {
             BimProject project = null;
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -700,7 +700,7 @@ namespace BimProjectSetupCommon
             }
             return project;
         }
-        internal static void HandleUpdateProjectResponse(IRestResponse response, BimProject project, int rowIndex = -1)
+        internal static void HandleUpdateProjectResponse(RestResponse response, BimProject project, int rowIndex = -1)
         {
             LogResponse(response);
             ResponseContent content = null;
@@ -729,7 +729,7 @@ namespace BimProjectSetupCommon
                 Log.Warn($"Status Code: {response.StatusCode.ToString()}\t Message: {msg}");
             }
         }
-        internal static string HandleCreateProjectResponse(IRestResponse response, string accountId, int rowIndex)
+        internal static string HandleCreateProjectResponse(RestResponse response, string accountId, int rowIndex)
         {
             ResponseContent content = null;
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
@@ -766,7 +766,7 @@ namespace BimProjectSetupCommon
                 return "error";
             }
         }
-        internal static void LogResponse(IRestResponse response)
+        internal static void LogResponse(RestResponse response)
         {
             Log.Info($"- status code: {response.StatusCode}");
             if (response.ErrorException != null)

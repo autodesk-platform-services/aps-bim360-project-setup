@@ -1,4 +1,4 @@
-# forge-bim360.project.setup.tool
+# aps-bim360-project-setup
 
 ![Platforms](https://img.shields.io/badge/platform-Windows-lightgray.svg)
 ![.NET](https://img.shields.io/badge/.NET-4.6-blue.svg)
@@ -27,8 +27,8 @@ Command line tool to setup BIM 360 projects, services, users, it includes the fo
 - .NET Framework basic knowledge with C#
 
 # Running locally
-- For using this sample, you need an Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). 
-- Connect your Forge App to a Specific BIM 360 Account, follow the [tutorial](https://forge.autodesk.com/en/docs/bim360/v1/tutorials/getting-started/get-access-to-account/)
+- For using this sample, you need an Autodesk developer credentials. Visit the [Autodesk Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). 
+- Connect your APS App to a Specific BIM 360 Account, follow the [tutorial](https://aps.autodesk.com/en/docs/bim360/v1/tutorials/getting-started/get-access-to-account/)
 - Download the repository, open `BimProjectSetupTool.sln` Solution on Visual Studio. The build process should download the required packages (**Autodesk.Forge** and dependencies). Compile and build the project, run it, please check the [User Guide](BIM360-ProjectSetupTool-UsageGuide.pdf) for all the details about usage and preparation of csv files.
 
 # Features
@@ -92,8 +92,8 @@ Note: These template files used in the scripts are just samples which are define
     - -p Path to CSV input file for project creation
     - -x Path to CSV input file for service activation
     - -u Path to CSV input file with project user information
-    - -c Forge client ID
-    - -s Forge client secret
+    - -c APS client ID
+    - -s APS client secret
     - -a BIM 360 Account ID
     - -b BaseUrl (default= "https://developer.api.autodesk.com")
     - -t Separator character (default = ';')
@@ -117,7 +117,7 @@ Note: These template files used in the scripts are just samples which are define
 
 # Further Reading
 **Documentation:**
-- [BIM 360 API](https://developer.autodesk.com/en/docs/bim360/v1/overview/) and [App Provisioning](https://forge.autodesk.com/blog/bim-360-docs-provisioning-forge-apps)
+- [BIM 360 API](https://developer.autodesk.com/en/docs/bim360/v1/overview/) and [App Provisioning](https://aps.autodesk.com/blog/bim-360-docs-provisioning-forge-apps)
 
 
 # Tips & Tricks
@@ -127,7 +127,7 @@ Note: These template files used in the scripts are just samples which are define
     2. Make sure the .CSV file is formatted in UTF-8 code.
     3. Open the file in a text editor such as Notepad++ after it was saved to ensure the above two points.
 - Logging can be configured in the Nlog.config file. Further information can be found here: https://github.com/nlog/NLog/wiki/Configuration-file.
-- If running the tool from the batch file under sample folder, please make sure to set FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, FORGE_BIM_ACCOUNT_ID correctly(**DO NOT** include quotation marks).
+- If running the tool from the batch file under sample folder, please make sure to set APS_CLIENT_ID, APS_CLIENT_SECRET, APS_BIM_ACCOUNT_ID correctly(**DO NOT** include quotation marks).
 - Currently, the following project services could be activated:
 
     | Service Type | Description | 
@@ -159,4 +159,4 @@ This sample is licensed under the terms of the [MIT License](http://opensource.o
 
 # Written by
 - Oliver Scharpf, Global Consulting Delivery team, Autodesk.
-- Reviewed and maintained by Zhong Wu [@johnonsoftware](https://twitter.com/johnonsoftware), [Forge Partner Development](http://forge.autodesk.com)
+- Reviewed and maintained by Zhong Wu [@johnonsoftware](https://twitter.com/johnonsoftware), [Autodesk Partner Development](http://aps.autodesk.com)

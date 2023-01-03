@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BimProjectSetupCLI", "BimPr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BimProjectSetupCommon", "BimProjectSetupCommon\BimProjectSetupCommon.csproj", "{E89BD53E-9D65-4633-8D39-D42494E76C78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForgeBimApi", "ForgeBimApi\ForgeBimApi.csproj", "{53655EB7-B32C-4186-AAFB-F43271B9223E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APSBimApi", "APSBimApi\APSBimApi.csproj", "{53655EB7-B32C-4186-AAFB-F43271B9223E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

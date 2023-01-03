@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -23,7 +23,7 @@ using System.Text;
 using System.Reflection;
 using System.Collections.Generic;
 using NLog;
-using Autodesk.Forge.BIM360.Serialization;
+using Autodesk.APS.BIM360.Serialization;
 
 namespace BimProjectSetupCommon.Helpers
 {

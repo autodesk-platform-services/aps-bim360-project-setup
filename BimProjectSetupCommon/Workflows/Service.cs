@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
-// Written by Forge Partner Development
+// Written by Autodesk
 //
 // Permission to use, copy, modify, and distribute this software in
 // object code form for any purpose and without fee is hereby granted,
@@ -22,8 +22,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
 using BimProjectSetupCommon.Helpers;
-using Autodesk.Forge.BIM360;
-using Autodesk.Forge.BIM360.Serialization;
+using Autodesk.APS.BIM360;
+using Autodesk.APS.BIM360.Serialization;
 
 namespace BimProjectSetupCommon.Workflow
 {
@@ -102,7 +102,7 @@ namespace BimProjectSetupCommon.Workflow
             {
                 string projName = _serviceToActivate[rowIndex].project_name;
                 string id = DataController.GetProjectIdByName(projName);
-                IRestResponse response = ActivateService(_serviceToActivate[rowIndex], id, rowIndex);
+                RestResponse response = ActivateService(_serviceToActivate[rowIndex], id, rowIndex);
             }
             CsvExporter.WriteResults(DataController._serviceTable, _options, _options.ServiceFilePath);
         }
@@ -137,9 +137,9 @@ namespace BimProjectSetupCommon.Workflow
                 Log.Error(e.Message);
             }
         }
-        private IRestResponse ActivateService(ServiceActivation service, string projectId, int rowIndex = -1)
+        private RestResponse ActivateService(ServiceActivation service, string projectId, int rowIndex = -1)
         {
-            IRestResponse response = null;
+            RestResponse response = null;
             if (false == CheckRequiredParams(service))
             {
                 string msg = $"- one of the required parameters is null or empty. Required are: role, service_type,company_id,email";
@@ -166,7 +166,7 @@ namespace BimProjectSetupCommon.Workflow
         }
 
         #region Response Handler
-        internal static void ActivateProjectResponseHandler(IRestResponse response, string id, int rowIndex = -1)
+        internal static void ActivateProjectResponseHandler(RestResponse response, string id, int rowIndex = -1)
         {
             LogResponse(response);
 
@@ -193,7 +193,7 @@ namespace BimProjectSetupCommon.Workflow
                 Log.Warn($"- service not activated. {msg}");
             }
         }
-        internal static void LogResponse(IRestResponse response)
+        internal static void LogResponse(RestResponse response)
         {
             Log.Info($"- status code: {response.StatusCode}");
             if (response.ErrorException != null)
