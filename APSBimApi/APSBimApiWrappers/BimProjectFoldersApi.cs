@@ -53,7 +53,7 @@ namespace Autodesk.APS.BIM360
             }
             request.AddParameter("ProjectId", projectId, ParameterType.UrlSegment);
             request.AddParameter("FolderId", folderId, ParameterType.UrlSegment);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("Cache-Control", "no-cache");
 
             RestResponse response = ExecuteRequest(request);
@@ -326,7 +326,7 @@ namespace Autodesk.APS.BIM360
 
             request.AddParameter("ProjectId", projectId, ParameterType.UrlSegment);
             request.AddParameter("FolderId", folderId, ParameterType.UrlSegment);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("Cache-Control", "no-cache");
 
             RestResponse response = ExecuteRequest(request);

@@ -17,8 +17,13 @@
 /////////////////////////////////////////////////////////////////////
 
 using System;
-using Autodesk.Forge;
-using Autodesk.Forge.Client;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Autodesk.SDKManager;
+using Autodesk.Authentication;
+using Autodesk.Authentication.Model;
+
 using NLog;
 
 namespace Autodesk.APS.BIM360
@@ -26,41 +31,30 @@ namespace Autodesk.APS.BIM360
     public class Authentication
     {
         private static Logger Log = LogManager.GetCurrentClassLogger();
-        // Initialize the oAuth 2.0 client configuration fron enviroment variables
-        // you can also hardcode them in the code if you want in the placeholders below
-        private static Scope[] _scope = new Scope[] { Scope.DataSearch, Scope.DataCreate, Scope.DataRead, Scope.DataWrite, Scope.AccountRead, Scope.AccountWrite };
+        private static Autodesk.SDKManager.SDKManager _SDKManager;
+        private static List<Scopes> _scope = new List<Scopes> { Scopes.DataSearch, Scopes.DataCreate, Scopes.DataRead, Scopes.DataWrite, Scopes.AccountRead, Scopes.AccountWrite };
 
-        public static string Authenticate(ApplicationOptions options)
+        public static async Task<string> Authenticate(ApplicationOptions options)
         {
+            string token = null;
+            _SDKManager = SdkManagerBuilder.Create().Build();
             try
             {
-                TwoLeggedApi _twoLeggedApi = null;
-                if (string.IsNullOrWhiteSpace(options.BaseUrl))
-                {
-                    _twoLeggedApi = new TwoLeggedApi();
-                }else
-                {
-                    _twoLeggedApi = new TwoLeggedApi(options.BaseUrl);
-                }
-                
-                ApiResponse<dynamic> bearer = _twoLeggedApi.AuthenticateWithHttpInfo(options.APSClientId, options.APSClientSecret, oAuthConstants.CLIENT_CREDENTIALS, _scope);
-                if (bearer.StatusCode != 200)
-                {
-                    throw new Exception("Request failed! (with HTTP response " + bearer.StatusCode + ")");
-                }                 
-                if (bearer.Data == null)
+                AuthenticationClient authenticationClient = new AuthenticationClient(_SDKManager);
+                var tokenRes = await authenticationClient.GetTwoLeggedTokenAsync(options.APSClientId, options.APSClientSecret, _scope);
+                if (tokenRes == null || tokenRes.AccessToken == null )
                 {
                     Log.Info("You were not granted a new access_token!");
                     return null;
                 }
-                // The call returned successfully and you got a valid access_token.
-                string token = bearer.Data.token_type + " " + bearer.Data.access_token;
-                return bearer.Data.access_token;
+                token = tokenRes.AccessToken;
             }
             catch (Exception ex )
             {
+                Log.Info("Exception while get token: " + ex.Message);
                 throw ex;
             }
+            return token;
         }
     }
 }

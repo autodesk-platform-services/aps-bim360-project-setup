@@ -55,7 +55,7 @@ namespace Autodesk.APS.BIM360
             request.AddParameter("application/json", projectString, ParameterType.RequestBody);
 
             request.AddHeader("content-type", ContentType);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             
             RestResponse response = ExecuteRequest(request);
             return response;
@@ -77,7 +77,7 @@ namespace Autodesk.APS.BIM360
             request.AddParameter("ProjectId", projectId, ParameterType.UrlSegment);
 
             request.AddHeader("cache-control", "no-cache");
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("content-type", ContentType);
 
             JsonSerializerSettings settings = new JsonSerializerSettings();
@@ -111,7 +111,7 @@ namespace Autodesk.APS.BIM360
             request.AddParameter("application/json", serviceString, ParameterType.RequestBody);
 
             request.AddHeader("cache-control", "no-cache");
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("content-type", ContentType);
             request.AddHeader("x-user-id", userId);
 
@@ -141,7 +141,7 @@ namespace Autodesk.APS.BIM360
             request.AddParameter("application/json", serviceString, ParameterType.RequestBody);
 
             request.AddHeader("cache-control", "no-cache");
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("content-type", ContentType);
             request.AddHeader("x-user-id", adminUserId);
 
@@ -171,7 +171,7 @@ namespace Autodesk.APS.BIM360
             request.AddParameter("application/json", projectString, ParameterType.RequestBody);
 
             request.AddHeader("content-type", ContentType);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
 
             RestResponse response = ExecuteRequest(request);
             return response;
@@ -199,7 +199,7 @@ namespace Autodesk.APS.BIM360
                     var request = new RestRequest(Urls["projects"]);
 
                     request.AddParameter("AccountId", options.APSBimAccountId, ParameterType.UrlSegment);
-                    request.AddHeader("authorization", $"Bearer {Token}");
+                    request.AddHeader("authorization", $"Bearer {Token.Result}");
                     request.AddParameter("sort", sortProp, ParameterType.QueryString);
                     request.AddParameter("limit", limit, ParameterType.QueryString);
                     request.AddParameter("offset", offset, ParameterType.QueryString);
@@ -254,7 +254,7 @@ namespace Autodesk.APS.BIM360
                 }
 
                 request.AddParameter("ProjectId", projectId, ParameterType.UrlSegment);
-                request.AddHeader("authorization", $"Bearer {Token}");
+                request.AddHeader("authorization", $"Bearer {Token.Result}");
 
                 response = ExecuteRequest(request);
             }
@@ -287,7 +287,7 @@ namespace Autodesk.APS.BIM360
                 }
 
                 request.AddParameter("ProjectId", projectId, ParameterType.UrlSegment);
-                request.AddHeader("authorization", $"Bearer {Token}");
+                request.AddHeader("authorization", $"Bearer {Token.Result}");
 
                 RestResponse response = ExecuteRequest(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)

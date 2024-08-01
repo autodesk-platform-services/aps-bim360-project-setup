@@ -20,6 +20,7 @@ using System;
 using Autodesk.APS.BIM360;
 using NLog;
 using BimProjectSetupCommon.Helpers;
+using System.Threading.Tasks;
 
 namespace BimProjectSetupCommon.Workflow
 {
@@ -36,11 +37,11 @@ namespace BimProjectSetupCommon.Workflow
             DataController._options = options;
         }
 
-        public string GetToken()
+        public async Task<string> GetToken()
         {
             if (_token == null || ((DateTime.Now - StartAuth) > TimeSpan.FromMinutes(30)))
             {
-                _token = Authentication.Authenticate(DataController._options);
+                _token = await Authentication.Authenticate(DataController._options);
                 StartAuth = DateTime.Now;
                 return _token;
             }

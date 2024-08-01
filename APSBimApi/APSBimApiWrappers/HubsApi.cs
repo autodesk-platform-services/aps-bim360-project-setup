@@ -39,7 +39,7 @@ namespace Autodesk.APS.BIM360
                 hubId = "b." + hubId;
             }
             request.AddParameter("HubId", hubId, ParameterType.UrlSegment);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("Cache-Control", "no-cache");
 
             RestResponse response = ExecuteRequest(request);
@@ -52,7 +52,7 @@ namespace Autodesk.APS.BIM360
         {
             var request = new RestRequest(Urls["hubs"]);
 
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("Cache-Control", "no-cache");
 
             RestResponse response = ExecuteRequest(request);
@@ -74,7 +74,7 @@ namespace Autodesk.APS.BIM360
             }
             request.AddParameter("HubId", hubId, ParameterType.UrlSegment);
             request.AddParameter("ProjectId", projectId, ParameterType.UrlSegment);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
             request.AddHeader("Cache-Control", "no-cache");
 
             RestResponse response = ExecuteRequest(request);

@@ -52,7 +52,7 @@ namespace Autodesk.APS.BIM360
                     {
                         request.AddParameter("AccountId", accountId, ParameterType.UrlSegment);
                     }
-                    request.AddHeader("authorization", $"Bearer {Token}");
+                    request.AddHeader("authorization", $"Bearer {Token.Result}");
                     request.AddParameter("limit", limit, ParameterType.QueryString);
                     request.AddParameter("offset", offset, ParameterType.QueryString);
 
@@ -91,7 +91,7 @@ namespace Autodesk.APS.BIM360
             request.AddParameter("application/json", projectString, ParameterType.RequestBody);
 
             request.AddHeader("content-type", ContentType);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
 
             RestResponse response = ExecuteRequest(request);
             return response;
@@ -113,7 +113,7 @@ namespace Autodesk.APS.BIM360
                     var request = new RestRequest(Urls["companies"], Method.Get);
 
                     request.AddParameter("AccountId", options.APSBimAccountId, ParameterType.UrlSegment);
-                    request.AddHeader("authorization", $"Bearer {Token}");
+                    request.AddHeader("authorization", $"Bearer {Token.Result}");
                     request.AddParameter("limit", 100);
                     request.AddParameter("offset", offset);
 
@@ -151,7 +151,7 @@ namespace Autodesk.APS.BIM360
             request.AddParameter("application/json", projectString, ParameterType.RequestBody);
 
             request.AddHeader("content-type", ContentType);
-            request.AddHeader("authorization", $"Bearer {Token}");
+            request.AddHeader("authorization", $"Bearer {Token.Result}");
 
             RestResponse response = ExecuteRequest(request);
             return response;
@@ -166,7 +166,7 @@ namespace Autodesk.APS.BIM360
                 //request.Resource = "hq/v1/accounts/{AccountId}/business_units_structure";
                 var request = new RestRequest(Urls["businessUnitsStructure"] );
                 request.AddParameter("AccountId", options.APSBimAccountId, ParameterType.UrlSegment);
-                request.AddHeader("authorization", $"Bearer {Token}");
+                request.AddHeader("authorization", $"Bearer {Token.Result}");
 
                 RestResponse response = ExecuteRequest(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)

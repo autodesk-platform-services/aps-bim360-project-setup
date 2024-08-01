@@ -22,11 +22,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using System.Threading.Tasks;
+
 
 namespace Autodesk.APS.BIM360
 {
     // pointer to a function that provides a valid token
-    public delegate string Token();
+    public delegate Task<string> Token();
 
     public interface ApplicationOptions
     {
@@ -58,7 +60,7 @@ namespace Autodesk.APS.BIM360
 
         private int[] retryStatusCodes = { 429, 503, 504 };
 
-        internal string Token
+        internal Task<string> Token
         {
             get
             {

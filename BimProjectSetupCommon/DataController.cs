@@ -20,6 +20,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 using NLog;
 using System.Linq;
@@ -394,11 +395,11 @@ namespace BimProjectSetupCommon
         #endregion
 
         #region APS API calls
-        private static string GetToken()
+        private static async Task<string> GetToken()
         {
             if (_token == null || ((DateTime.Now - StartAuth) > TimeSpan.FromMinutes(30)))
             {
-                _token = Authentication.Authenticate(_options);
+                _token = await Authentication.Authenticate(_options);
                 StartAuth = DateTime.Now;
                 return _token;
             }
