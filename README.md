@@ -1,7 +1,7 @@
 # aps-bim360-project-setup
 
 ![Platforms](https://img.shields.io/badge/platform-Windows-lightgray.svg)
-![.NET](https://img.shields.io/badge/.NET-4.6-blue.svg)
+![.NET](https://img.shields.io/badge/.NET-4.8-blue.svg)
 
 [![Data-Management](https://img.shields.io/badge/Data%20Management-v2-green.svg)](http://developer.autodesk.com/)
 [![BIM-360](https://img.shields.io/badge/BIM%20360-v1-green.svg)](http://developer.autodesk.com/)
@@ -159,4 +159,4 @@ This sample is licensed under the terms of the [MIT License](http://opensource.o
 
 # Written by
 - Oliver Scharpf, Global Consulting Delivery team, Autodesk.
-- Reviewed and maintained by Zhong Wu [@johnonsoftware](https://twitter.com/johnonsoftware), [Autodesk Partner Development](http://aps.autodesk.com)
+- Reviewed and maintained by Zhong Wu [@johnonsoftware](https://twitter.com/johnonsoftware), [Autodesk Platform Services](http://aps.autodesk.com)

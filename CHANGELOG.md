@@ -1,4 +1,12 @@
 # Change History
+## Improve Date: 2024-8-1
+- Migrated to the new following .NET SDK:
+  - Autodesk.SDKManager.1.0.0
+  - Autodesk.Authentication.1.0.0
+
+## Improve Date: 2023-10-30
+- Migrated to Autodesk.Forge SDK 1.9.9 to support Authorization V2 automatically.
+ 
 ## Improve Date: 2020-10-12
 - Support to update existing project users' information, includes access (admin or user), company, and roles.
 - This is contributed by Joe Fields, thanks to Joe.
