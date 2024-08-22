@@ -85,7 +85,7 @@ namespace Autodesk.APS.BIM360
                                                  folderId);
                 uri += "?filter[type]=folders"; // add query string
                 var request = new RestRequest(uri);
-                request.AddHeader("Authorization", "Bearer " + Token);
+                request.AddHeader("Authorization", "Bearer " + Token.Result);
 
                 RestResponse response = ExecuteRequest(request);
 
@@ -120,7 +120,7 @@ namespace Autodesk.APS.BIM360
                 uri += "?filter[type]=items"; // add query string
                 var request = new RestRequest(uri);
 
-                request.AddHeader("Authorization", "Bearer " + Token);
+                request.AddHeader("Authorization", "Bearer " + Token.Result);
 
                 RestResponse response = ExecuteRequest(request);
 
@@ -409,7 +409,7 @@ namespace Autodesk.APS.BIM360
                                               projectId);
             var request = new RestRequest(uri, Method.Post);
 
-            request.AddHeader("Authorization", "Bearer " + Token);
+            request.AddHeader("Authorization", "Bearer " + Token.Result);
             request.AddHeader("Content-Type", "application/vnd.api+json");
             request.AddHeader("x-user-id", userId);
             request.AddParameter("application/vnd.api+json", createFolderJsonBody(newFolderName, parentFolderId), ParameterType.RequestBody);
@@ -463,7 +463,7 @@ namespace Autodesk.APS.BIM360
             string permissionsString = JsonConvert.SerializeObject(rolePermissions, settings);
             request.AddParameter("application/json", permissionsString, ParameterType.RequestBody);
 
-            request.AddHeader("Authorization", "Bearer " + Token);
+            request.AddHeader("Authorization", "Bearer " + Token.Result);
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("x-user-id", userId);
 
