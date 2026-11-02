@@ -1,3 +1,6 @@
+<!-- archived-notice -->
+> **This repository is archived.** Archived repositories are not maintained or supported.
+
 # aps-bim360-project-setup
 
 ![Platforms](https://img.shields.io/badge/platform-Windows-lightgray.svg)
